@@ -1,8 +1,9 @@
-0.1.2 (2015-09-xx)
+0.1.2 (2015-09-18)
 
 - Remove universal flag from wheel package
 - Improve documentation
 - Add -v switch
+- Add CONTRIBUTE.md file
 
 0.1.1 (2015-09-18)
 
