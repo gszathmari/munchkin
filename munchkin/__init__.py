@@ -2,4 +2,4 @@
 
 __all__ = ['munchkin', ]
 
-from munchkin import execute
+from munchkin import main

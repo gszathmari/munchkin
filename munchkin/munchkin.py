@@ -61,7 +61,7 @@ def generate_card_custom(args, card):
     password_dumper(args, card)
 
 # Contains input arguments and launches controller
-def main():
+def menu():
     parser = argparse.ArgumentParser()
 
     parent_parser = argparse.ArgumentParser(add_help=False)
@@ -116,8 +116,8 @@ def banner():
     print("Munchkin version: {0}\r".format(__version__))
     print(banner)
 
-def execute(argv=None):
+def main(argv=None):
     # Only display the banner if the output is terminal
     if sys.stdout.isatty():
         banner()
-    main()
+    menu()
