@@ -89,11 +89,15 @@ The latest package is available on `PyPI`_ ::
 Usage Instructions
 ==================
 
-Munchkin has two operation modes: one is for generating passwords based on cards
-from http://passwordcard.org, and the other is for user supplied custom cards.
+The following section explains the basic usage of Munchkin. You can also use
+the ``-h`` switch for getting more information on the individual features.
 
 Operation Modes
 ---------------
+
+There are two operation modes available. The first one generates cards similar
+to the ones from http://passwordcard.org, and the second allows to bring your
+own password cards.
 
 passwordcard.org Cards
 ^^^^^^^^^^^^^^^^^^^^^^

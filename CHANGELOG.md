@@ -1,3 +1,8 @@
+0.1.3 (2015-09-18)
+
+- Improve documentation
+- Fixate numpy dependency version number
+
 0.1.2 (2015-09-18)
 
 - Remove universal flag from wheel package
