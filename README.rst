@@ -16,8 +16,7 @@ What is a password card?
 Password (aka. grid) card is a physical card that allows you to memorize your
 passwords easier.
 
-.. image:: https://raw.githubusercontent.com/gszathmari/munchkin/docs/images/password_card.png
-  :scale: 40
+.. image:: https://raw.githubusercontent.com/gszathmari/munchkin/master/docs/images/password_card.png
   :alt: Password Card
 
 The card contains a block of random alphanumeric characters. You just need to
@@ -49,29 +48,25 @@ Munchkin can generate passwords based on the following card reading strategies.
 Left to right
 ^^^^^^^^^^^^^
 
-.. image:: https://raw.githubusercontent.com/gszathmari/munchkin/docs/images/left-to-right.png
-   :scale: 20
+.. image:: https://raw.githubusercontent.com/gszathmari/munchkin/master/docs/images/left-to-right.png
    :alt: Left to Right
 
 Right to left
 ^^^^^^^^^^^^^
 
-.. image:: https://raw.githubusercontent.com/gszathmari/munchkin/docs/images/right-to-left.png
-   :scale: 20
+.. image:: https://raw.githubusercontent.com/gszathmari/munchkin/master/docs/images/right-to-left.png
    :alt: Right to Left
 
 Top down
 ^^^^^^^^
 
-.. image:: https://raw.githubusercontent.com/gszathmari/munchkin/docs/images/top-down.png
-   :scale: 20
+.. image:: https://raw.githubusercontent.com/gszathmari/munchkin/master/docs/images/top-down.png
    :alt: Top Down
 
 Bottom up
 ^^^^^^^^^
 
-.. image:: https://raw.githubusercontent.com/gszathmari/munchkin/docs/images/bottom-up.png
-   :scale: 20
+.. image:: https://raw.githubusercontent.com/gszathmari/munchkin/master/docs/images/bottom-up.png
    :alt: Bottom Up
 
 Supported Cards
