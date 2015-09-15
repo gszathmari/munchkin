@@ -32,7 +32,7 @@ Passwords cards heavily rely on physical security. The card should be kept in
 your wallet or pocket, far away from watchful eyes around you.
 
 In case the card is lost or recorded with a camera (e.g. CCTV), your password
-shall be considered as compromised and changed immediately.
+is compromised therefore it should be changed immediately.
 
 Features
 ========
@@ -40,7 +40,7 @@ Features
 Munchkin can generate wordlists from compromised password cards.
 
 This utility generates potential passwords and dumps them onto the screen or
-into a text file.
+into a text file. The list of passwords can be used for brute-force attacks.
 
 Supported Strategies
 --------------------
@@ -161,6 +161,15 @@ Supply your own password card and generate passwords with multiple read
 strategies ::
 
   $ munchkin custom -l -r -t -b
+
+Links
+=====
+
+* `Source code on GitHub`_
+* `Package on PyPI`_
+
+.. _Source code on GitHub: https://github.com/gszathmari/munchkin
+.. _Package on PyPI: https://pypi.python.org/pypi/munchkin
 
 Contributors
 ============

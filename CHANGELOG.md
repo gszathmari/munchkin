@@ -1,3 +1,8 @@
+0.1.2 (2015-09-xx)
+
+- Remove universal flag from wheel package
+- Improve documentation
+
 0.1.1 (2015-09-18)
 
 - Fix packaging issues
