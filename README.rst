@@ -4,7 +4,9 @@ munchkin
 
 Wordlist generator based on password cards
 
-Munchkin generates a possible combinations of passwords from a password card
+.. image:: https://travis-ci.org/gszathmari/munchkin.svg
+    :target: https://travis-ci.org/gszathmari/munchkin
+    :alt: Travis CI
 
 .. image:: https://codeclimate.com/github/gszathmari/munchkin/badges/gpa.svg
    :target: https://codeclimate.com/github/gszathmari/munchkin

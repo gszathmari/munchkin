@@ -9,7 +9,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name="munchkin",
-    version="0.0.1",
+    version="0.1.0",
     author="Gabor Szathmari",
     author_email="gszathmari@gmail.com",
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
@@ -17,7 +17,7 @@ setup(
     url="https://github.com/gszathmari/munchkin",
     license="MIT",
     platforms = ["Linux"],
-    description="Wordlist generator based on password (grid) cards",
+    description="Wordlist generator based on password cards",
     long_description=long_description,
     entry_points={
         'console_scripts': [
@@ -26,7 +26,7 @@ setup(
     },
     install_requires=["numpy"],
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 3 - Beta',
         'License :: OSI Approved :: MIT License',
         'Topic :: Security',
         'Intended Audience :: Other Audience',
