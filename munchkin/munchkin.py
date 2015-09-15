@@ -11,7 +11,7 @@ import logging
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lib'))
 
-from __about__ import __version__
+from __about__ import __version__, __author__
 from card import Card
 
 logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
@@ -62,7 +62,10 @@ def generate_card_custom(args, card):
 
 # Contains input arguments and launches controller
 def menu():
+    version_info="Munchkin wordlist generator version %s by %s" % (__version__, __author__)
     parser = argparse.ArgumentParser()
+
+    parser.add_argument('-v', '--version', help='version information', action='version', version=version_info)
 
     parent_parser = argparse.ArgumentParser(add_help=False)
     parent_parser.add_argument('-f', '--file', type=argparse.FileType('wb', 0), metavar='name', help='dump passwords to file')
@@ -85,11 +88,13 @@ def menu():
     passwordcard_options.add_argument('-s', '--seed', help='card number (e.g. 7eb3fbfa560d1d1e)', required=True, metavar='str')
     passwordcard_options.add_argument('--symbols', help='include symbols (broken)', action='store_true')
     passwordcard_options.add_argument('--digits', help='incude digits', action='store_true')
-    passwordcard_options.set_defaults(func=generate_card_pcard)
 
+    # Set controller functions
+    passwordcard_options.set_defaults(func=generate_card_pcard)
     parser_custom.set_defaults(func=generate_card_custom)
 
     args = parser.parse_args()
+
     controller(args)
 
 def controller(args):
@@ -113,7 +118,7 @@ def banner():
 | |   | || |   | || | \   || |      | (   ) ||  ( \ \    | |   | | \   |
 | )   ( || (___) || )  \  || (____/\| )   ( ||  /  \ \___) (___| )  \  |
 |/     \|(_______)|/    )_)(_______/|/     \||_/    \/\_______/|/    )_)\r\n"""
-    print("Munchkin version: {0}\r".format(__version__))
+    print("Munchkin {0}\r".format(__version__))
     print(banner)
 
 def main(argv=None):

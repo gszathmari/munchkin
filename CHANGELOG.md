@@ -2,6 +2,7 @@
 
 - Remove universal flag from wheel package
 - Improve documentation
+- Add -v switch
 
 0.1.1 (2015-09-18)
 
