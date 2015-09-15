@@ -77,6 +77,15 @@ Supported Cards
 * Cards from http://passwordcard.org
 * Any user-supplied custom card
 
+Installing Munchkin
+===================
+
+The latest package is available on `PyPI`_ ::
+
+  $ pip install munchkin
+
+.. _PyPI: https://pypi.python.org/pypi/munchkin
+
 Usage Instructions
 ==================
 

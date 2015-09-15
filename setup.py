@@ -26,7 +26,7 @@ setup(
     },
     install_requires=["numpy"],
     classifiers=[
-        'Development Status :: 3 - Beta',
+        'Development Status :: 4 - Beta',
         'License :: OSI Approved :: MIT License',
         'Topic :: Security',
         'Intended Audience :: Other Audience',
