@@ -2,6 +2,7 @@
 
 import logging
 import sys
+import itertools
 import numpy as np
 
 from passwordcard import passwordcard
@@ -22,7 +23,11 @@ class Card:
             "left_to_right": args.left_to_right,
             "right_to_left": args.right_to_left,
             "top_down": args.top_down,
-            "bottom_up": args.bottom_up
+            "bottom_up": args.bottom_up,
+
+            
+            "zig_zag": args.zig_zag,
+            "zig_zag_reverse": args.zig_zag_rev
         }
         self._options = {
             "minlen": int(args.minlen),
@@ -104,6 +109,27 @@ class Card:
         data.reverse()
         return data
 
+    def _zig_zag(self):
+        rows = self._m.getA().tolist()
+        for i in range(len(rows)):
+            # Reverse order on every second line
+            if i % 2 <> 0:
+                rows[i].reverse()
+        # Flatten list
+        data = list(itertools.chain.from_iterable(rows))
+        return data
+
+    def _zig_zag_reverse(self):
+        rows = self._m.getA().tolist()
+        rows.reverse()
+        for i in range(len(rows)):
+            # Reverse order on every second line
+            if i % 2 == 0:
+                rows[i].reverse()
+        # Flatten list
+        data = list(itertools.chain.from_iterable(rows))
+        return data
+
     # --------------------------------------------------------
 
     # Adds appropriate streams based on the selected strategies
@@ -121,6 +147,10 @@ class Card:
         # In case the password is read from bottom right to top left
         if self._patterns['bottom_up'] is True:
             streams.append(self._bottom_to_top())
+        if self._patterns['zig_zag'] is True:
+            streams.append(self._zig_zag())
+        if self._patterns['zig_zag_reverse'] is True:
+            streams.append(self._zig_zag_reverse())
         # Save streams
         self._streams = streams
         return streams

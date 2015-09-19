@@ -4,16 +4,7 @@ import munchkin
 
 from nose.tools import *
 from munchkin.card import Card
-
-class Args:
-    def __init__(self):
-        self.seed = "1"
-        self.left_to_right = True
-        self.right_to_left = False
-        self.top_down = False
-        self.bottom_up = False
-        self.minlen = 6
-        self.maxlen = 8
+from args import Args
 
 args = Args()
 custom_card_data = [

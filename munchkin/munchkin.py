@@ -73,6 +73,8 @@ def menu():
     wordlist_options.add_argument('-r', '--right-to-left', help='read card from bottom right to top left', action='store_true')
     wordlist_options.add_argument('-t', '--top-down', help='read card from top left to bottom left', action='store_true')
     wordlist_options.add_argument('-b', '--bottom-up', help='read card from bottom right to top right', action='store_true')
+    wordlist_options.add_argument('-z', '--zig-zag', help='read card zig-zag from top left', action='store_true')
+    wordlist_options.add_argument('-x', '--zig-zag-rev', help='read card zig-zag from bottom right', action='store_true')
 
     subparsers = parser.add_subparsers(title='subcommands', description='valid subcommands', help='Generate wordlist based on cards from:')
     parser_pc = subparsers.add_parser('pcard', help="http://passwordcard.org", parents=[parent_parser])
@@ -93,8 +95,13 @@ def menu():
 
 def controller(args):
     # Verifies whether at least one strategy was selected
-    if (args.left_to_right or args.right_to_left or args.top_down or args.bottom_up) is False:
-        logging.error("Please select at least one algorithm (hint: -l/-r/-t/-b)\r\n")
+    if (args.left_to_right or
+        args.right_to_left or
+        args.top_down or
+        args.bottom_up or
+        args.zig_zag or
+        args.zig_zag_rev) is False:
+        logging.error("Please select at least one algorithm (hint: -l/-r/-t/-b/-z/-x)\r\n")
         sys.exit(3)
     else:
         # Create card and start processing
