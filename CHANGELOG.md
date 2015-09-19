@@ -1,3 +1,7 @@
+0.2.0 (2015-09-19)
+
+- Fixing bug that prevented generating passwordcard.org cards with symbols (resolves #1)
+
 0.1.3 (2015-09-18)
 
 - Improve documentation

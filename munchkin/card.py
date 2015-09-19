@@ -53,22 +53,8 @@ class Card:
     # Generate password card as on http://passwordcard.org
     def generate_password_card(self, digits=False, symbols=False):
         m = []
-        width, height = 29, 8
-        # Select appropriate character sets
-        if symbols:
-            top_charset = passwordcard.CHARSETS['original.alphanumeric_with_symbols']
-        else:
-            top_charset = passwordcard.CHARSETS['original.alphanumeric']
-        if digits:
-            bottom_charset = passwordcard.CHARSETS['original.digits']
-        elif symbols:
-            bottom_charset = passwordcard.CHARSETS['original.alphanumeric_with_symbols']
-        else:
-            bottom_charset = passwordcard.CHARSETS['original.alphanumeric']
-        header = passwordcard.HEADERS['original']
-        seed = int("0x%s" % self._seed, 16)
         # Generate card
-        header, card = passwordcard.generate_card(seed, width, height, top_charset, bottom_charset, header)
+        header, card = passwordcard.generate_card(self._seed, digits=digits, symbols=symbols)
 
         # Add lists to a list and generate matrix from that with NumPy
         for row in card:

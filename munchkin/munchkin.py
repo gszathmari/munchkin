@@ -37,12 +37,6 @@ def password_dumper(args, card):
 
 # Generate card similar to ones on http://passwordcard.org
 def generate_card_pcard(args, card):
-    # FIXME: Symbols feature is broken
-    if args.symbols:
-        logging.error("Sorry, this feature is broken at the moment. :(")
-        logging.error("Please select the custom card type and paste your card manually.")
-        sys.exit(3)
-
     card.generate_password_card(symbols=args.symbols, digits=args.digits)
     password_dumper(args, card)
 
@@ -86,7 +80,7 @@ def menu():
 
     passwordcard_options = parser_pc.add_argument_group('passwordcard options')
     passwordcard_options.add_argument('-s', '--seed', help='card number (e.g. 7eb3fbfa560d1d1e)', required=True, metavar='str')
-    passwordcard_options.add_argument('--symbols', help='include symbols (broken)', action='store_true')
+    passwordcard_options.add_argument('--symbols', help='include symbols', action='store_true')
     passwordcard_options.add_argument('--digits', help='incude digits', action='store_true')
 
     # Set controller functions

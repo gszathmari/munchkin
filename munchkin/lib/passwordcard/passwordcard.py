@@ -33,13 +33,43 @@ HEADERS = {
     'original': u"■□▲△○●★☂☀☁☹☺♠♣♥♦♫€¥£$!?¡¿⊙◐◩�",
     }
 
-def generate_card(seed, width, height, top_charset, bottom_charset, header):
+# Construct the appropriate character sets
+def generate_character_sets(symbols, digits):
+    characters = {}
+    # Select characters for the card
+    if symbols and not digits:
+        characters['top_odd'] = list(CHARSETS['original.alphanumeric'])
+        characters['top_even'] = list(CHARSETS['original.alphanumeric_with_symbols'])
+        characters['bottom_odd'] = list(CHARSETS['original.alphanumeric'])
+        characters['bottom_even'] = list(CHARSETS['original.alphanumeric_with_symbols'])
+    elif symbols and digits:
+        characters['top_odd'] = list(CHARSETS['original.alphanumeric'])
+        characters['top_even'] = list(CHARSETS['original.alphanumeric_with_symbols'])
+        characters['bottom_odd'] = list(CHARSETS['original.digits'])
+        characters['bottom_even'] = list(CHARSETS['original.digits'])
+    elif not symbols and digits:
+        characters['top_odd'] = list(CHARSETS['original.alphanumeric'])
+        characters['top_even'] = list(CHARSETS['original.alphanumeric'])
+        characters['bottom_odd'] = list(CHARSETS['original.digits'])
+        characters['bottom_even'] = list(CHARSETS['original.digits'])
+    elif not symbols and not digits:
+        characters['top_odd'] = list(CHARSETS['original.alphanumeric'])
+        characters['top_even'] = list(CHARSETS['original.alphanumeric'])
+        characters['bottom_odd'] = list(CHARSETS['original.alphanumeric'])
+        characters['bottom_even'] = list(CHARSETS['original.alphanumeric'])
+    else:
+        raise Exception("Cannot choose charset for password card")
+    return characters
+
+def generate_card(seed, width=29, height=8, symbols=False, digits=False):
+    characters = generate_character_sets(symbols, digits)
+
+    seed = int("0x%s" % seed, 16)
+
     """Generate a password card with the given parameters"""
     rng = javarandom.JavaRandom(seed)
 
-    header = list(header)
-    top_charset = list(top_charset)
-    bottom_charset = list(bottom_charset)
+    header = list(HEADERS['original'])
 
     rng.shuffle(header)
 
@@ -50,12 +80,22 @@ def generate_card(seed, width, height, top_charset, bottom_charset, header):
     for i in range(1, midheight):
         line = []
         for j in range(width):
-            line.append(top_charset[rng.next_int(len(top_charset))])
+            # Even columns
+            if j % 2 == 0:
+                line.append(characters['top_even'][rng.next_int(len(characters['top_even']))])
+            # Odd columns
+            else:
+                line.append(characters['top_odd'][rng.next_int(len(characters['top_odd']))])
         contents.append(u''.join(line))
     for j in range(midheight, height+1):
         line = []
         for j in range(width):
-            line.append(bottom_charset[rng.next_int(len(bottom_charset))])
+            # Even columns
+            if j % 2 == 0:
+                line.append(characters['bottom_even'][rng.next_int(len(characters['bottom_even']))])
+            # Odd columns
+            else:
+                line.append(characters['bottom_odd'][rng.next_int(len(characters['bottom_odd']))])
         contents.append(u''.join(line))
 
     return u''.join(header), contents

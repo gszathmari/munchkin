@@ -109,7 +109,7 @@ Use the ``pcard`` selector to generate passwords from passwordcard.org cards ::
 This selector recognises the following options:
 
   -s str, --seed str  card number (e.g. *7eb3fbfa560d1d1e*)
-  --symbols           include symbols (**broken**)
+  --symbols           include symbols
   --digits            incude digits
 
 Custom Cards
