@@ -3,6 +3,7 @@
 - Fixing bug that prevented generating passwordcard.org cards with symbols (resolves #1)
 - Adding zig-zag and reverse zig-zag algorithms (closes #2)
 - Add diagonal read strategy (closes #4)
+- Add '--all' switch to turn off each card read strategy (closes #7)
 
 0.1.3 (2015-09-18)
 

@@ -26,7 +26,8 @@ class Card:
             "bottom_up": args.bottom_up,
             "zig_zag": args.zig_zag,
             "zig_zag_reverse": args.zig_zag_rev,
-            "diagonal": args.diagonal
+            "diagonal": args.diagonal,
+            "all": args.all
         }
         self._options = {
             "minlen": int(args.minlen),
@@ -142,22 +143,22 @@ class Card:
     def _generate_data_streams(self):
         streams = []
         # In case the password is read from left to right
-        if self._patterns['left_to_right'] is True:
+        if self._patterns['left_to_right'] or self._patterns['all']:
             streams.append(self._left_to_right())
         # In case the password is read from right to left
-        if self._patterns['right_to_left'] is True:
+        if self._patterns['right_to_left'] or self._patterns['all']:
             streams.append(self._right_to_left())
         # In case the password is read from top left to bottom right
-        if self._patterns['top_down'] is True:
+        if self._patterns['top_down'] or self._patterns['all']:
             streams.append(self._top_to_down())
         # In case the password is read from bottom right to top left
-        if self._patterns['bottom_up'] is True:
+        if self._patterns['bottom_up'] or self._patterns['all']:
             streams.append(self._bottom_to_top())
-        if self._patterns['zig_zag'] is True:
+        if self._patterns['zig_zag'] or self._patterns['all']:
             streams.append(self._zig_zag())
-        if self._patterns['zig_zag_reverse'] is True:
+        if self._patterns['zig_zag_reverse'] or self._patterns['all']:
             streams.append(self._zig_zag_reverse())
-        if self._patterns['diagonal'] is True:
+        if self._patterns['diagonal'] or self._patterns['all']:
             streams.append(self._diagonal())
         # Save streams
         self._streams = streams

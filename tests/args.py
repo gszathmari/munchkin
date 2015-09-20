@@ -10,5 +10,6 @@ class Args:
         self.zig_zag = False
         self.zig_zag_rev = False
         self.diagonal = False
+        self.all = False
         self.minlen = 6
         self.maxlen = 8
