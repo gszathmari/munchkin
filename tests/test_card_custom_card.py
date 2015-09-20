@@ -18,11 +18,11 @@ custom_card = Card(args)
 def setup():
     custom_card.generate_custom_card(card_data)
 
-def test_custom_card_rows_and_columns():
+def test_rows_and_columns():
     eq_(custom_card.rows, 4)
     eq_(custom_card.columns, 7)
 
-def test_custom_card_print_card():
+def test_print_card():
     ok_("| abcdefg |" in custom_card.m)
     ok_("| 1234567 |" in custom_card.m)
     ok_("| QwertYu |" in custom_card.m)

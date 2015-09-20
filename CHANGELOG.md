@@ -4,6 +4,7 @@
 - Adding zig-zag and reverse zig-zag algorithms (closes #2)
 - Add diagonal read strategy (closes #4)
 - Add '--all' switch to turn off each card read strategy (closes #7)
+- Improve unit test coverage (closes #5)
 
 0.1.3 (2015-09-18)
 
