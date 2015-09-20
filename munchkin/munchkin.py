@@ -75,6 +75,7 @@ def menu():
     wordlist_options.add_argument('-b', '--bottom-up', help='read card from bottom right to top right', action='store_true')
     wordlist_options.add_argument('-z', '--zig-zag', help='read card zig-zag from top left', action='store_true')
     wordlist_options.add_argument('-x', '--zig-zag-rev', help='read card zig-zag from bottom right', action='store_true')
+    wordlist_options.add_argument('-d', '--diagonal', help='read card diagonally', action='store_true')
 
     subparsers = parser.add_subparsers(title='subcommands', description='valid subcommands', help='Generate wordlist based on cards from:')
     parser_pc = subparsers.add_parser('pcard', help="http://passwordcard.org", parents=[parent_parser])
@@ -100,8 +101,9 @@ def controller(args):
         args.top_down or
         args.bottom_up or
         args.zig_zag or
-        args.zig_zag_rev) is False:
-        logging.error("Please select at least one algorithm (hint: -l/-r/-t/-b/-z/-x)\r\n")
+        args.zig_zag_rev or
+        args.diagonal) is False:
+        logging.error("Please select at least one algorithm (hint: -l/-r/-t/-b/-z/-x/-d)\r\n")
         sys.exit(3)
     else:
         # Create card and start processing

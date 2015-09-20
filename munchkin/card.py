@@ -24,10 +24,9 @@ class Card:
             "right_to_left": args.right_to_left,
             "top_down": args.top_down,
             "bottom_up": args.bottom_up,
-
-            
             "zig_zag": args.zig_zag,
-            "zig_zag_reverse": args.zig_zag_rev
+            "zig_zag_reverse": args.zig_zag_rev,
+            "diagonal": args.diagonal
         }
         self._options = {
             "minlen": int(args.minlen),
@@ -130,6 +129,13 @@ class Card:
         data = list(itertools.chain.from_iterable(rows))
         return data
 
+    def _diagonal(self):
+        diagonals = []
+        for i in range(self.rows * -1, self.columns):
+            diagonals.append(self._m.diagonal(offset=i).tolist()[0])
+        data = list(itertools.chain.from_iterable(diagonals))
+        return data
+
     # --------------------------------------------------------
 
     # Adds appropriate streams based on the selected strategies
@@ -151,6 +157,8 @@ class Card:
             streams.append(self._zig_zag())
         if self._patterns['zig_zag_reverse'] is True:
             streams.append(self._zig_zag_reverse())
+        if self._patterns['diagonal'] is True:
+            streams.append(self._diagonal())
         # Save streams
         self._streams = streams
         return streams
