@@ -44,8 +44,10 @@ def generate_card_pcard(args, card):
 def generate_card_custom(args, card):
     data = []
     print("Please copy-paste password card below (press ENTER twice when done):\r\n")
+    # Read card from terminal
     while True:
         input_str = raw_input()
+        # Finish reading when user leaves line empty
         if input_str == "":
             break
         else:
