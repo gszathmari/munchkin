@@ -13,31 +13,9 @@ class Card:
     def __init__(self, args):
         # Store card as matrix
         self._m = None
-        self._dimensions = {
-            "rows": None,
-            "columns": None,
-        }
         # Stores password streams generated from the card
-        self._streams = []
-        self._patterns = {
-            "left_to_right": args.left_to_right,
-            "right_to_left": args.right_to_left,
-            "top_down": args.top_down,
-            "bottom_up": args.bottom_up,
-            "zig_zag": args.zig_zag,
-            "zig_zag_reverse": args.zig_zag_rev,
-            "diagonal": args.diagonal,
-            "all": args.all
-        }
-        self._options = {
-            "minlen": int(args.minlen),
-            "maxlen": int(args.maxlen)
-        }
-        try:
-            # Passwordcard.org seed
-            self._seed = str(args.seed)
-        except AttributeError:
-            pass
+        self._args = vars(args)
+        self._seed = self._args.get('seed')
 
     # Validates custom cards supplied by the user
     def _validate_matrix(self, m):
@@ -54,32 +32,6 @@ class Card:
                 sys.exit(2)
         else:
             return matrix
-
-    # Generate password card as on http://passwordcard.org
-    def generate_password_card(self, digits=False, symbols=False):
-        m = []
-        # Generate card
-        header, card = passwordcard.generate_card(self._seed, digits=digits, symbols=symbols)
-
-        # Add lists to a list and generate matrix from that with NumPy
-        for row in card:
-            m.append(list(row))
-
-        # Validate and generate matrix with NumPy
-        self._m = self._validate_matrix(m)
-        # Save card dimensions
-        self._dimensions['rows'] = len(m)
-        self._dimensions['columns'] = len(m[0])
-        return self._m
-
-    # Generates custom password card
-    def generate_custom_card(self, m):
-        # Validate and generate matrix with NumPy
-        self._m = self._validate_matrix(m)
-        # Save card dimensions
-        self._dimensions['rows'] = len(m)
-        self._dimensions['columns'] = len(m[0])
-        return self._m
 
     # --------------------------------------------------------
     #
@@ -139,94 +91,29 @@ class Card:
 
     # --------------------------------------------------------
 
-    # Adds appropriate streams based on the selected strategies
+    # Adds appropriate character streams based on the selected card reading strategies
     def _generate_data_streams(self):
         streams = []
-        # In case the password is read from left to right
-        if self._patterns['left_to_right'] or self._patterns['all']:
+        if self._args.get('left_to_right') or self._args.get('all'):
             streams.append(self._left_to_right())
-        # In case the password is read from right to left
-        if self._patterns['right_to_left'] or self._patterns['all']:
+        if self._args.get('right_to_left') or self._args.get('all'):
             streams.append(self._right_to_left())
-        # In case the password is read from top left to bottom right
-        if self._patterns['top_down'] or self._patterns['all']:
+        if self._args.get('top_down') or self._args.get('all'):
             streams.append(self._top_to_down())
-        # In case the password is read from bottom right to top left
-        if self._patterns['bottom_up'] or self._patterns['all']:
+        if self._args.get('bottom_up') or self._args.get('all'):
             streams.append(self._bottom_to_top())
-        if self._patterns['zig_zag'] or self._patterns['all']:
+        if self._args.get('zig_zag') or self._args.get('all'):
             streams.append(self._zig_zag())
-        if self._patterns['zig_zag_reverse'] or self._patterns['all']:
+        if self._args.get('zig_zag_reverse') or self._args.get('all'):
             streams.append(self._zig_zag_reverse())
-        if self._patterns['diagonal'] or self._patterns['all']:
+        if self._args.get('diagonal') or self._args.get('all'):
             streams.append(self._diagonal())
-        # Save streams
-        self._streams = streams
         return streams
 
-    # Displays card dimensions
-    def _get_dimensions(self):
-        data = "%sx%s" % (self._dimensions['rows'], self._dimensions['columns'])
-        return str(data)
-
-    # Get number of password card rows
-    @property
-    def rows(self):
-        return self._dimensions['rows']
-
-    # Get number of password card columns
-    @property
-    def columns(self):
-        return self._dimensions['columns']
-
-    # Generates fancy password card box
-    @property
-    def m(self):
-        output = []
-
-        # Assign text header
-        try:
-            # Display seed in case of passwordcard.org cards
-            header = " %s " % self._seed
-        except AttributeError:
-            # Display generic title for custom cards
-            header = " PASSWORD CARD "
-
-        # Verify wether card is wide enough to display header text
-        if len(header)+2 > self.columns:
-            # Box is too narrow, do not add text header
-            top = "+-" + ("-" * self.columns) + "-+\r"
-        else:
-            # Add text header
-            top = "+-%s-+\r" % header.center(self.columns, "-")
-        output.append(top)
-
-        # Add empty line between top and body
-        empty_line = "| " + (" " * self.columns) + " |"
-        output.append(empty_line)
-
-        # Add password card body
-        for i in range(len(self._m)):
-            row = ''.join(self._m.tolist()[i])
-            row = "| %s |" % row.center(self.columns)
-            output.append(row)
-
-        # Add empty line between body and bottom
-        output.append(empty_line)
-
-        # Add bottom with password card dimensions
-        dimensions = " %s " % self._get_dimensions()
-        bottom = "+%s+\r" % dimensions.center(self.columns+2, "-")
-        output.append(bottom)
-        output.append("\r")
-
-        # Return full box with password card as the output
-        return '\r\n'.join(output)
-
     # Generator that dumps the passwords for each card read strategy
-    def _passwords_generator(self, pwlen):
+    def _passwords_generator(self, streams, pwlen):
         # Iterate through streams (strategies)
-        for stream in self._streams:
+        for stream in streams:
             counter = 0
             # Generate passwords with certain length from the card
             while counter+pwlen < len(stream)+1:
@@ -235,13 +122,80 @@ class Card:
                 yield ''.join(result)
                 counter += 1
 
+    # Generate password card as on http://passwordcard.org
+    def generate_password_card(self, digits=False, symbols=False):
+        m = []
+        # Generate card
+        header, card = passwordcard.generate_card(self._seed, digits=digits, symbols=symbols)
+        # Add lists to a list and generate matrix from that with NumPy
+        for row in card:
+            m.append(list(row))
+        # Validate and generate matrix with NumPy
+        self._m = self._validate_matrix(m)
+        # Save card dimensions
+        return self._m
+
+    # Generates custom password card
+    def generate_custom_card(self, m):
+        # Validate and generate matrix with NumPy
+        self._m = self._validate_matrix(m)
+        # Save card dimensions
+        return self._m
+
+    # Get number of password card rows
+    @property
+    def rows(self):
+        return self._m.shape[0]
+
+    # Get number of password card columns
+    @property
+    def columns(self):
+        return self._m.shape[1]
+
+    # Generates fancy password card box
+    @property
+    def m(self):
+        output = []
+        # Assign text header
+        try:
+            # Display seed in case of passwordcard.org cards
+            header = " %s " % self._seed
+        except AttributeError:
+            # Display generic title for custom cards
+            header = " PASSWORD CARD "
+        # Verify wether card is wide enough to display header text
+        if len(header)+2 > self.columns:
+            # Box is too narrow, do not add text header
+            top = "+-" + ("-" * self.columns) + "-+\r"
+        else:
+            # Add text header
+            top = "+-%s-+\r" % header.center(self.columns, "-")
+        output.append(top)
+        # Add empty line between top and body
+        empty_line = "| " + (" " * self.columns) + " |"
+        output.append(empty_line)
+        # Add password card body
+        for i in range(len(self._m)):
+            row = ''.join(self._m.tolist()[i])
+            row = "| %s |" % row.center(self.columns)
+            output.append(row)
+        # Add empty line between body and bottom
+        output.append(empty_line)
+        # Add bottom with password card dimensions
+        dimensions = " %sx%s " % (self.rows, self.columns)
+        bottom = "+%s+\r" % dimensions.center(self.columns+2, "-")
+        output.append(bottom)
+        output.append("\r")
+        # Return full box with password card as the output
+        return '\r\n'.join(output)
+
     # Dumps passwords from the password card
     @property
     def passwords(self):
         # Generate streams based on the card read strategies
-        self._generate_data_streams()
+        streams = self._generate_data_streams()
         # Iterate through all password lengths between minimum and maximum
-        for pwlen in range(self._options['minlen'], self._options['maxlen']+1):
+        for pwlen in range(int(self._args.get('minlen')), int(self._args.get('minlen'))+1):
             # Dump password on the screen constructed by the generator above
-            for password in self._passwords_generator(pwlen):
+            for password in self._passwords_generator(streams, pwlen):
                 yield password
