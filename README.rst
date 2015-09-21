@@ -45,31 +45,28 @@ into a text file. The list of passwords can be used for brute-force attacks.
 Supported Strategies
 --------------------
 
-Munchkin can generate passwords based on the following card reading strategies.
+Passwords from a password card can be chosen by the user based on different
+strategies. He or she might read passwords from left to right, top to down or
+diagonally.
 
-Left to right
+Munchkin can generate passwords based on the most common card reading
+strategies. The followings are samples only.
+
+Left to Right
 ^^^^^^^^^^^^^
 
 .. image:: https://raw.githubusercontent.com/gszathmari/munchkin/master/docs/images/left-to-right.png
    :alt: Left to Right
 
-Right to left
-^^^^^^^^^^^^^
-
-.. image:: https://raw.githubusercontent.com/gszathmari/munchkin/master/docs/images/right-to-left.png
-   :alt: Right to Left
-
-Top down
+Top Down
 ^^^^^^^^
 
 .. image:: https://raw.githubusercontent.com/gszathmari/munchkin/master/docs/images/top-down.png
    :alt: Top Down
 
-Bottom up
-^^^^^^^^^
+Refer to the documentation for a comprehensive list of `password generating strategies`_.
 
-.. image:: https://raw.githubusercontent.com/gszathmari/munchkin/master/docs/images/bottom-up.png
-   :alt: Bottom Up
+.. _password generating strategies: https://github.com/gszathmari/munchkin/blob/testing/docs/strategies.rst
 
 Supported Cards
 ---------------
@@ -109,7 +106,7 @@ Use the ``pcard`` selector to generate passwords from passwordcard.org cards ::
 This selector recognises the following options:
 
   -s str, --seed str  card number (e.g. *7eb3fbfa560d1d1e*)
-  --symbols           include symbols (**broken**)
+  --symbols           include symbols
   --digits            incude digits
 
 Custom Cards

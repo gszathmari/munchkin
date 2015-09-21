@@ -2,6 +2,7 @@
 
 import logging
 import sys
+import itertools
 import numpy as np
 
 from passwordcard import passwordcard
@@ -22,7 +23,11 @@ class Card:
             "left_to_right": args.left_to_right,
             "right_to_left": args.right_to_left,
             "top_down": args.top_down,
-            "bottom_up": args.bottom_up
+            "bottom_up": args.bottom_up,
+            "zig_zag": args.zig_zag,
+            "zig_zag_reverse": args.zig_zag_rev,
+            "diagonal": args.diagonal,
+            "all": args.all
         }
         self._options = {
             "minlen": int(args.minlen),
@@ -53,22 +58,8 @@ class Card:
     # Generate password card as on http://passwordcard.org
     def generate_password_card(self, digits=False, symbols=False):
         m = []
-        width, height = 29, 8
-        # Select appropriate character sets
-        if symbols:
-            top_charset = passwordcard.CHARSETS['original.alphanumeric_with_symbols']
-        else:
-            top_charset = passwordcard.CHARSETS['original.alphanumeric']
-        if digits:
-            bottom_charset = passwordcard.CHARSETS['original.digits']
-        elif symbols:
-            bottom_charset = passwordcard.CHARSETS['original.alphanumeric_with_symbols']
-        else:
-            bottom_charset = passwordcard.CHARSETS['original.alphanumeric']
-        header = passwordcard.HEADERS['original']
-        seed = int("0x%s" % self._seed, 16)
         # Generate card
-        header, card = passwordcard.generate_card(seed, width, height, top_charset, bottom_charset, header)
+        header, card = passwordcard.generate_card(self._seed, digits=digits, symbols=symbols)
 
         # Add lists to a list and generate matrix from that with NumPy
         for row in card:
@@ -118,23 +109,57 @@ class Card:
         data.reverse()
         return data
 
+    def _zig_zag(self):
+        rows = self._m.getA().tolist()
+        for i in range(len(rows)):
+            # Reverse order on every second line
+            if i % 2 <> 0:
+                rows[i].reverse()
+        # Flatten list
+        data = list(itertools.chain.from_iterable(rows))
+        return data
+
+    def _zig_zag_reverse(self):
+        rows = self._m.getA().tolist()
+        rows.reverse()
+        for i in range(len(rows)):
+            # Reverse order on every second line
+            if i % 2 == 0:
+                rows[i].reverse()
+        # Flatten list
+        data = list(itertools.chain.from_iterable(rows))
+        return data
+
+    def _diagonal(self):
+        diagonals = []
+        for i in range(self.rows * -1, self.columns):
+            diagonals.append(self._m.diagonal(offset=i).tolist()[0])
+        data = list(itertools.chain.from_iterable(diagonals))
+        return data
+
     # --------------------------------------------------------
 
     # Adds appropriate streams based on the selected strategies
     def _generate_data_streams(self):
         streams = []
         # In case the password is read from left to right
-        if self._patterns['left_to_right'] is True:
+        if self._patterns['left_to_right'] or self._patterns['all']:
             streams.append(self._left_to_right())
         # In case the password is read from right to left
-        if self._patterns['right_to_left'] is True:
+        if self._patterns['right_to_left'] or self._patterns['all']:
             streams.append(self._right_to_left())
         # In case the password is read from top left to bottom right
-        if self._patterns['top_down'] is True:
+        if self._patterns['top_down'] or self._patterns['all']:
             streams.append(self._top_to_down())
         # In case the password is read from bottom right to top left
-        if self._patterns['bottom_up'] is True:
+        if self._patterns['bottom_up'] or self._patterns['all']:
             streams.append(self._bottom_to_top())
+        if self._patterns['zig_zag'] or self._patterns['all']:
+            streams.append(self._zig_zag())
+        if self._patterns['zig_zag_reverse'] or self._patterns['all']:
+            streams.append(self._zig_zag_reverse())
+        if self._patterns['diagonal'] or self._patterns['all']:
+            streams.append(self._diagonal())
         # Save streams
         self._streams = streams
         return streams
