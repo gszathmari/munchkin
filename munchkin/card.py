@@ -16,6 +16,7 @@ class Card:
         # Stores password streams generated from the card
         self._args = vars(args)
         self._seed = self._args.get('seed')
+        self._header = None
 
     # Validates custom cards supplied by the user
     def _validate_matrix(self, m):
@@ -132,6 +133,7 @@ class Card:
             m.append(list(row))
         # Validate and generate matrix with NumPy
         self._m = self._validate_matrix(m)
+        self._header = header
         # Save card dimensions
         return self._m
 
@@ -174,6 +176,11 @@ class Card:
         # Add empty line between top and body
         empty_line = "| " + (" " * self.columns) + " |"
         output.append(empty_line)
+        # Add header of symbols if card is from passwordcard.org
+        if self._header:
+            row = "| %s |" % self._header.center(self.columns)
+            output.append(row)
+            output.append(empty_line)
         # Add password card body
         for i in range(len(self._m)):
             row = ''.join(self._m.tolist()[i])

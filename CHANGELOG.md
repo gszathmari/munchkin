@@ -1,6 +1,7 @@
 0.2.2 (2015-09-22)
 
 - Change build badges in README.rst file
+- Add header of symbols if card is from passwordcard.org
 
 0.2.1 (2015-09-22)
 
