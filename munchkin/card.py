@@ -107,7 +107,6 @@ class Card:
     def _generate_data_streams(self):
         streams = []
         if self._args.get('left_to_right') or self._args.get('all'):
-            print(self._left_to_right())
             streams.append(self._left_to_right())
         if self._args.get('right_to_left') or self._args.get('all'):
             streams.append(self._right_to_left())
