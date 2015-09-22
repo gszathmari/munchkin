@@ -73,7 +73,7 @@ Top Down
 
 Refer to the documentation for a comprehensive list of `password generating strategies`_.
 
-.. _password generating strategies: https://github.com/gszathmari/munchkin/blob/testing/docs/strategies.rst
+.. _password generating strategies: https://github.com/gszathmari/munchkin/blob/master/docs/strategies.rst
 
 Supported Cards
 ---------------
