@@ -195,7 +195,7 @@ class Card:
         # Generate streams based on the card read strategies
         streams = self._generate_data_streams()
         # Iterate through all password lengths between minimum and maximum
-        for pwlen in range(int(self._args.get('minlen')), int(self._args.get('minlen'))+1):
+        for pwlen in range(int(self._args.get('minlen')), int(self._args.get('maxlen'))+1):
             # Dump password on the screen constructed by the generator above
             for password in self._passwords_generator(streams, pwlen):
                 yield password
