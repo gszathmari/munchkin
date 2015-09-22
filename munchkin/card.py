@@ -90,12 +90,24 @@ class Card:
         data = list(itertools.chain.from_iterable(diagonals))
         return data
 
+    def _angled(self):
+        data = []
+        for i in range(0, self.rows-1):
+            # Select a row
+            stream = self._m[i].tolist()[0]
+            # Select last elements from each row below
+            for j in range(i+1, self.rows):
+                stream.append(self._m[j].tolist()[0][-1])
+            data.append(stream)
+        return data
+
     # --------------------------------------------------------
 
     # Adds appropriate character streams based on the selected card reading strategies
     def _generate_data_streams(self):
         streams = []
         if self._args.get('left_to_right') or self._args.get('all'):
+            print(self._left_to_right())
             streams.append(self._left_to_right())
         if self._args.get('right_to_left') or self._args.get('all'):
             streams.append(self._right_to_left())
@@ -109,6 +121,10 @@ class Card:
             streams.append(self._zig_zag_reverse())
         if self._args.get('diagonal') or self._args.get('all'):
             streams.append(self._diagonal())
+        if self._args.get('angled') or self._args.get('all'):
+            data = self._angled()
+            for i in range(0, len(data)):
+                streams.append(data[i])
         return streams
 
     # Generator that dumps the passwords for each card read strategy

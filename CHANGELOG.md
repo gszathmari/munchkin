@@ -1,7 +1,11 @@
-0.2.1 (2015-09-24)
+0.2.2 (2015-09-22)
+
+- Fixing bug preventing from generating passwords in different ranges
+- Add 'angled' card reading strategy (resolves #6)
+
+0.2.1 (2015-09-22)
 
 - Code refactoring
-- Fixing bug preventing from generating passwords in different ranges
 
 0.2.0 (2015-09-19)
 

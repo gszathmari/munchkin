@@ -72,6 +72,12 @@ def test_diagonal():
     ok_("cxY9Lq" in stream)
     ok_("pRZrwD" in stream)
 
+def test_angled():
+    streams = card._angled()
+    ok_("TLhWEaPXwG9LK" in ''.join(streams[0]))
+    ok_("RxKBYG9LK" in ''.join(streams[4]))
+    ok_("SQYuvLsLK" in ''.join(streams[6]))
+
 def test_symbols():
     card = Card(args)
     card.generate_password_card(symbols=True)
