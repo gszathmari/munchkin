@@ -45,3 +45,12 @@ Diagonal
 
 .. image:: https://raw.githubusercontent.com/gszathmari/munchkin/master/docs/images/diagonal.png
    :alt: Diagonal
+
+Angled
+------
+
+.. image:: https://raw.githubusercontent.com/gszathmari/munchkin/master/docs/images/angled-1.png
+   :alt: Angled 1
+
+.. image:: https://raw.githubusercontent.com/gszathmari/munchkin/master/docs/images/angled-2.png
+  :alt: Angled 2

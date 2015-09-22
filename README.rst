@@ -4,13 +4,20 @@ munchkin
 
 Wordlist generator based on password cards
 
-.. image:: https://travis-ci.org/gszathmari/munchkin.svg
+.. image:: https://img.shields.io/travis/gszathmari/munchkin.svg
     :target: https://travis-ci.org/gszathmari/munchkin
     :alt: Travis CI
 
-.. image:: https://codeclimate.com/github/gszathmari/munchkin/badges/gpa.svg
-   :target: https://codeclimate.com/github/gszathmari/munchkin
-   :alt: Code Climate
+.. image:: https://img.shields.io/codacy/3f42d3ee8060406d81e77dc6274bb671.svg
+   :target: https://www.codacy.com/app/gszathmari/munchkin
+   :alt: Codacy
+
+.. image:: https://img.shields.io/pypi/dm/munchkin.svg
+   :target: https://pypi.python.org/pypi/munchkin
+   :alt: PyPI
+
+.. image:: https://img.shields.io/pypi/pyversions/munchkin.svg
+   :alt: Python Versions
 
 What is a password card?
 ========================

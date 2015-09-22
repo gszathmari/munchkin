@@ -16,6 +16,7 @@ class Card:
         # Stores password streams generated from the card
         self._args = vars(args)
         self._seed = self._args.get('seed')
+        self._header = None
 
     # Validates custom cards supplied by the user
     def _validate_matrix(self, m):
@@ -89,6 +90,17 @@ class Card:
         data = list(itertools.chain.from_iterable(diagonals))
         return data
 
+    def _angled(self):
+        data = []
+        for i in range(0, self.rows-1):
+            # Select a row
+            stream = self._m[i].tolist()[0]
+            # Select last elements from each row below
+            for j in range(i+1, self.rows):
+                stream.append(self._m[j].tolist()[0][-1])
+            data.append(stream)
+        return data
+
     # --------------------------------------------------------
 
     # Adds appropriate character streams based on the selected card reading strategies
@@ -108,6 +120,10 @@ class Card:
             streams.append(self._zig_zag_reverse())
         if self._args.get('diagonal') or self._args.get('all'):
             streams.append(self._diagonal())
+        if self._args.get('angled') or self._args.get('all'):
+            data = self._angled()
+            for i in range(0, len(data)):
+                streams.append(data[i])
         return streams
 
     # Generator that dumps the passwords for each card read strategy
@@ -132,6 +148,7 @@ class Card:
             m.append(list(row))
         # Validate and generate matrix with NumPy
         self._m = self._validate_matrix(m)
+        self._header = header
         # Save card dimensions
         return self._m
 
@@ -174,6 +191,11 @@ class Card:
         # Add empty line between top and body
         empty_line = "| " + (" " * self.columns) + " |"
         output.append(empty_line)
+        # Add header of symbols if card is from passwordcard.org
+        if self._header:
+            row = "| %s |" % self._header.center(self.columns)
+            output.append(row)
+            output.append(empty_line)
         # Add password card body
         for i in range(len(self._m)):
             row = ''.join(self._m.tolist()[i])
@@ -195,7 +217,7 @@ class Card:
         # Generate streams based on the card read strategies
         streams = self._generate_data_streams()
         # Iterate through all password lengths between minimum and maximum
-        for pwlen in range(int(self._args.get('minlen')), int(self._args.get('minlen'))+1):
+        for pwlen in range(int(self._args.get('minlen')), int(self._args.get('maxlen'))+1):
             # Dump password on the screen constructed by the generator above
             for password in self._passwords_generator(streams, pwlen):
                 yield password
