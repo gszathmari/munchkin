@@ -1,4 +1,8 @@
-0.2.1 (2015-09-24)
+0.2.2 (2015-09-22)
+
+- Change build badges in README.rst file
+
+0.2.1 (2015-09-22)
 
 - Code refactoring
 
