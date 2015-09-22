@@ -1,11 +1,7 @@
-0.2.2 (2015-09-22)
-
-- Change build badges in README.rst file
-- Add header of symbols if card is from passwordcard.org
-
-0.2.1 (2015-09-22)
+0.2.1 (2015-09-24)
 
 - Code refactoring
+- Fixing bug preventing from generating passwords in different ranges
 
 0.2.0 (2015-09-19)
 
