@@ -1,3 +1,7 @@
+0.2.3 (2015-09-22)
+
+- Fixing typo in console help
+
 0.2.2 (2015-09-22)
 
 - Fixing bug preventing from generating passwords in different ranges

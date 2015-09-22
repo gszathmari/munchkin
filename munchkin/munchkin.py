@@ -78,7 +78,7 @@ def menu():
     wordlist_options.add_argument('-z', '--zig-zag', help='read card zig-zag from top left', action='store_true')
     wordlist_options.add_argument('-x', '--zig-zag-rev', help='read card zig-zag from bottom right', action='store_true')
     wordlist_options.add_argument('-d', '--diagonal', help='read card diagonally', action='store_true')
-    wordlist_options.add_argument('-A', '--angled', help='read card diagonally', action='store_true')
+    wordlist_options.add_argument('-A', '--angled', help='read card at right-angle directions', action='store_true')
     wordlist_options.add_argument('-a', '--all', help='use each read strategy from above', action='store_true')
 
     subparsers = parser.add_subparsers(title='subcommands', description='valid subcommands', help='Generate wordlist based on cards from:')
