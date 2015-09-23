@@ -1,6 +1,7 @@
 0.2.5 (2015-09-23)
 
 - Minor code optimizations
+- Adding QuantifiedCode build badge
 
 0.2.4 (2015-09-23)
 
