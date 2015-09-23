@@ -1,3 +1,7 @@
+0.2.4 (2015-09-23)
+
+- Minor bugfixes and code optimizations
+
 0.2.3 (2015-09-22)
 
 - Fixing typo in console help

@@ -16,12 +16,12 @@ from card import Card
 
 logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
 
-# Displays card and passwords or dumps them to file
 def password_dumper(args, card):
+    """ Displays card and passwords or dumps them to file """
     # If this is a real terminal, display password card on screen
     if sys.stdout.isatty():
         logging.info("Printing password card")
-        print("\n%s" % card.m)
+        print("\n%s" % card.print_card)
     # Dump passwords to file if this option was selected
     if args.file:
         f = args.file
@@ -35,13 +35,13 @@ def password_dumper(args, card):
         for password in card.passwords:
             print(password)
 
-# Generate card similar to ones on http://passwordcard.org
 def generate_card_pcard(args, card):
+    """ Generate card similar to ones on http://passwordcard.org """
     card.generate_password_card(symbols=args.symbols, digits=args.digits)
     password_dumper(args, card)
 
-# Generate custom, user supplied password card
 def generate_card_custom(args, card):
+    """ Generate custom, user supplied password card """
     data = []
     print("Please copy-paste password card below (press ENTER twice when done):\r\n")
     # Read card from terminal
@@ -56,8 +56,8 @@ def generate_card_custom(args, card):
     card.generate_custom_card(data)
     password_dumper(args, card)
 
-# Contains input arguments and launches controller
 def menu():
+    """ Contains input arguments and launches controller """
     version_info="Munchkin wordlist generator version %s by %s" % (__version__, __author__)
     parser = argparse.ArgumentParser()
 
@@ -99,6 +99,7 @@ def menu():
     controller(args)
 
 def controller(args):
+    """ Verifies arguments and dispatches appropriate functions """
     # Verifies whether at least one strategy was selected
     if (args.left_to_right or
         args.right_to_left or
@@ -118,6 +119,7 @@ def controller(args):
 
 # Displays banner and program version
 def banner():
+    """ Generates fancy banner """
     banner = """
  _______           _        _______           _       _________ _
 (       )|\     /|( (    /|(  ____ \|\     /|| \    /\\__   __/( (    /|
@@ -131,6 +133,7 @@ def banner():
     print(banner)
 
 def main(argv=None):
+    """ Main program entry point """
     # Only display the banner if the output is terminal
     if sys.stdout.isatty():
         banner()

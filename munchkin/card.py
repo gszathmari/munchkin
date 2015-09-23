@@ -18,21 +18,21 @@ class Card:
         self._seed = self._args.get('seed')
         self._header = None
 
-    # Validates custom cards supplied by the user
-    def _validate_matrix(self, m):
+    @staticmethod
+    def _validate_matrix(m):
+        """ Validates custom cards supplied by the user """
         try:
             matrix = np.matrix(m)
-        except:
-            logging.error("Invalid password card format")
+        except TypeError:
+            logging.error("Invalid password card format, please try again")
             sys.exit(2)
-
         # Check whether each line of matrix is equal
         for i in range(0, len(m)-1):
             if not len(m[i]) == len(m[i+1]):
-                logging.error("Invalid password card format")
+                logging.error("Invalid password card format, please try again")
                 sys.exit(2)
-        else:
-            return matrix
+        # Return matrix if its format is a-okay
+        return matrix
 
     # --------------------------------------------------------
     #
@@ -40,29 +40,30 @@ class Card:
     #
     # --------------------------------------------------------
 
-    # If the password from the card is read from left to right
     def _left_to_right(self):
+        """ If the password from the card is read from left to right """
         data = self._m.getA1().flatten()
         return data.tolist()
 
-    # If the password from the card is read from right to left
     def _right_to_left(self):
+        """ If the password from the card is read from right to left """
         data = self._left_to_right()
         data.reverse()
         return data
 
-    # If the password from the card is read from top to down
     def _top_to_down(self):
+        """ If the password from the card is read from top to down """
         data = self._m.getT().getA1().flatten()
         return data.tolist()
 
-    # If the password from the card is read from bottom to up
     def _bottom_to_top(self):
+        """ If the password from the card is read from bottom to up """
         data = self._top_to_down()
         data.reverse()
         return data
 
     def _zig_zag(self):
+        """ If the password from the card is read in zig-zag directions """
         rows = self._m.getA().tolist()
         for i in range(len(rows)):
             # Reverse order on every second line
@@ -73,6 +74,7 @@ class Card:
         return data
 
     def _zig_zag_reverse(self):
+        """ If the password from the card is read in reverse zig-zag directions """
         rows = self._m.getA().tolist()
         rows.reverse()
         for i in range(len(rows)):
@@ -84,6 +86,7 @@ class Card:
         return data
 
     def _diagonal(self):
+        """ If the password from the card is read diagonally """
         diagonals = []
         for i in range(self.rows * -1, self.columns):
             diagonals.append(self._m.diagonal(offset=i).tolist()[0])
@@ -91,6 +94,7 @@ class Card:
         return data
 
     def _angled(self):
+        """ If the password from the card is read in a rotated 'L' shape """
         data = []
         for i in range(0, self.rows-1):
             # Select a row
@@ -103,8 +107,8 @@ class Card:
 
     # --------------------------------------------------------
 
-    # Adds appropriate character streams based on the selected card reading strategies
     def _generate_data_streams(self):
+        """ Adds appropriate character streams based on the selected card reading strategies """
         streams = []
         if self._args.get('left_to_right') or self._args.get('all'):
             streams.append(self._left_to_right())
@@ -126,8 +130,8 @@ class Card:
                 streams.append(data[i])
         return streams
 
-    # Generator that dumps the passwords for each card read strategy
     def _passwords_generator(self, streams, pwlen):
+        """ Generator that dumps the passwords for each card read strategy """
         # Iterate through streams (strategies)
         for stream in streams:
             counter = 0
@@ -138,8 +142,8 @@ class Card:
                 yield ''.join(result)
                 counter += 1
 
-    # Generate password card as on http://passwordcard.org
     def generate_password_card(self, digits=False, symbols=False):
+        """ Generate password card as on http://passwordcard.org """
         m = []
         # Generate card
         header, card = passwordcard.generate_card(self._seed, digits=digits, symbols=symbols)
@@ -152,26 +156,26 @@ class Card:
         # Save card dimensions
         return self._m
 
-    # Generates custom password card
     def generate_custom_card(self, m):
+        """ Generates custom password card """
         # Validate and generate matrix with NumPy
         self._m = self._validate_matrix(m)
         # Save card dimensions
         return self._m
 
-    # Get number of password card rows
     @property
     def rows(self):
+        """ Get number of password card rows """
         return self._m.shape[0]
 
-    # Get number of password card columns
     @property
     def columns(self):
+        """ Get number of password card columns """
         return self._m.shape[1]
 
-    # Generates fancy password card box
     @property
-    def m(self):
+    def print_card(self):
+        """ Generates fancy password card box """
         output = []
         # Assign text header
         try:
@@ -211,9 +215,9 @@ class Card:
         # Return full box with password card as the output
         return '\r\n'.join(output)
 
-    # Dumps passwords from the password card
     @property
     def passwords(self):
+        """ Dumps passwords from the password card """
         # Generate streams based on the card read strategies
         streams = self._generate_data_streams()
         # Iterate through all password lengths between minimum and maximum

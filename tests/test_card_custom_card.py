@@ -23,9 +23,9 @@ def test_rows_and_columns():
     eq_(custom_card.columns, 7)
 
 def test_print_card():
-    ok_("| abcdefg |" in custom_card.m)
-    ok_("| 1234567 |" in custom_card.m)
-    ok_("| QwertYu |" in custom_card.m)
-    ok_("| 9876543 |" in custom_card.m)
-    ok_("|         |" in custom_card.m)
-    ok_("+-- 4x7 --+" in custom_card.m)
+    ok_("| abcdefg |" in custom_card.print_card)
+    ok_("| 1234567 |" in custom_card.print_card)
+    ok_("| QwertYu |" in custom_card.print_card)
+    ok_("| 9876543 |" in custom_card.print_card)
+    ok_("|         |" in custom_card.print_card)
+    ok_("+-- 4x7 --+" in custom_card.print_card)
