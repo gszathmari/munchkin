@@ -1,6 +1,6 @@
 __description__ = 'Wordlist generator based on password cards'
 __title__ = 'munchkin'
-__version_info__ = ('0', '2', '4')
+__version_info__ = ('0', '2', '5')
 __version__ = '.'.join(__version_info__)
 __author__ = 'Gabor Szathmari'
 __credits__ = ['Gabor Szathmari']

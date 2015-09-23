@@ -10,6 +10,7 @@ from passwordcard import passwordcard
 logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
 
 class Card:
+    """ Represents a password card """
     def __init__(self, args):
         # Store card as matrix
         self._m = None
@@ -130,7 +131,8 @@ class Card:
                 streams.append(data[i])
         return streams
 
-    def _passwords_generator(self, streams, pwlen):
+    @staticmethod
+    def _passwords_generator(streams, pwlen):
         """ Generator that dumps the passwords for each card read strategy """
         # Iterate through streams (strategies)
         for stream in streams:
