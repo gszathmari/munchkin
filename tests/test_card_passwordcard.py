@@ -17,17 +17,17 @@ def test_rows_and_columns():
     eq_(card.columns, 29)
 
 def test_print_card():
-    ok_("+-------------- 1 --------------+" in card.m)
-    ok_("|                               |" in card.m)
-    ok_("| reEPzAChZQVD2p4XGrVCVG9TLhWEa |" in card.m)
-    ok_("| nUDcvWmxWY6pxnj7fBkML8SaBqN2P |" in card.m)
-    ok_("| Dh6EGA67xud8R2Dwnhy6aTNr4cj5X |" in card.m)
-    ok_("| qrp2nCmcRLFvtZnxWhKQ3bq3Rsxvw |" in card.m)
-    ok_("| mcUcrY6GYr8QSyrePvkgsRWRxKBYG |" in card.m)
-    ok_("| 2877gzYz7ujCMs6wt3KmsQSqzUvq9 |" in card.m)
-    ok_("| Yme4MXNQU8qUfHmCDz6JnSQYuvLsL |" in card.m)
-    ok_("| EphFJDHnL8DaJra54RwZ8yaYPWMyK |" in card.m)
-    ok_("+------------- 8x29 ------------+" in card.m)
+    ok_("+-------------- 1 --------------+" in card.print_card)
+    ok_("|                               |" in card.print_card)
+    ok_("| reEPzAChZQVD2p4XGrVCVG9TLhWEa |" in card.print_card)
+    ok_("| nUDcvWmxWY6pxnj7fBkML8SaBqN2P |" in card.print_card)
+    ok_("| Dh6EGA67xud8R2Dwnhy6aTNr4cj5X |" in card.print_card)
+    ok_("| qrp2nCmcRLFvtZnxWhKQ3bq3Rsxvw |" in card.print_card)
+    ok_("| mcUcrY6GYr8QSyrePvkgsRWRxKBYG |" in card.print_card)
+    ok_("| 2877gzYz7ujCMs6wt3KmsQSqzUvq9 |" in card.print_card)
+    ok_("| Yme4MXNQU8qUfHmCDz6JnSQYuvLsL |" in card.print_card)
+    ok_("| EphFJDHnL8DaJra54RwZ8yaYPWMyK |" in card.print_card)
+    ok_("+------------- 8x29 ------------+" in card.print_card)
 
 def test_left_to_right():
     chars = card._left_to_right()
@@ -81,17 +81,17 @@ def test_angled():
 def test_symbols():
     card = Card(args)
     card.generate_password_card(symbols=True)
-    ok_('kUBcYW}x[Yjp>nx7(BsMu89aFqP2)' in card.m)
-    ok_('NmH42XeQH8vU4HNC%zvJJSjY{vEs/' in card.m)
+    ok_('kUBcYW}x[Yjp>nx7(BsMu89aFqP2)' in card.print_card)
+    ok_('NmH42XeQH8vU4HNC%zvJJSjY{vEs/' in card.print_card)
 
 def test_digits():
     card = Card(args)
     card.generate_password_card(digits=True)
-    ok_('reEPzAChZQVD2p4XGrVCVG9TLhWEa' in card.m)
-    ok_('30952342371574779679361685782' in card.m)
+    ok_('reEPzAChZQVD2p4XGrVCVG9TLhWEa' in card.print_card)
+    ok_('30952342371574779679361685782' in card.print_card)
 
 def test_symbols_and_digits():
     card = Card(args)
     card.generate_password_card(symbols=True, digits=True)
-    ok_('kUBcYW}x[Yjp>nx7(BsMu89aFqP2)' in card.m)
-    ok_('50069984619897882679198841295' in card.m)
+    ok_('kUBcYW}x[Yjp>nx7(BsMu89aFqP2)' in card.print_card)
+    ok_('50069984619897882679198841295' in card.print_card)
