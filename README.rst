@@ -20,6 +20,10 @@ Wordlist generator based on password cards
    :target: https://pypi.python.org/pypi/munchkin
    :alt: PyPI
 
+.. image:: https://img.shields.io/requires/github/gszathmari/munchkin.svg
+   :target: https://requires.io/github/gszathmari/munchkin/requirements/?branch=master
+   :alt: Requirements Status
+
 .. image:: https://img.shields.io/pypi/pyversions/munchkin.svg
    :alt: Python Versions
 

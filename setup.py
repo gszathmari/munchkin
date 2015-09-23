@@ -24,7 +24,7 @@ setup(
             'munchkin=munchkin:main',
         ],
     },
-    install_requires=["numpy==1.9.2"],
+    install_requires=["numpy==1.9.3"],
     classifiers=[
         'Development Status :: 4 - Beta',
         'License :: OSI Approved :: MIT License',

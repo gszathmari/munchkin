@@ -2,6 +2,8 @@
 
 - Minor code optimizations
 - Adding QuantifiedCode build badge
+- Adding requirements.io build badge
+- Update imported package versions
 
 0.2.4 (2015-09-23)
 
