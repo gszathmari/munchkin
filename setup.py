@@ -9,7 +9,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name="munchkin",
-    version="0.2.4",
+    version="0.2.5",
     author="Gabor Szathmari",
     author_email="gszathmari@gmail.com",
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
@@ -24,7 +24,7 @@ setup(
             'munchkin=munchkin:main',
         ],
     },
-    install_requires=["numpy==1.9.2"],
+    install_requires=["numpy==1.9.3"],
     classifiers=[
         'Development Status :: 4 - Beta',
         'License :: OSI Approved :: MIT License',

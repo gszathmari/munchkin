@@ -12,9 +12,17 @@ Wordlist generator based on password cards
    :target: https://www.codacy.com/app/gszathmari/munchkin
    :alt: Codacy
 
+.. image:: https://www.quantifiedcode.com/api/v1/project/c42903be20d644809c9c87c9b8c6b81f/badge.svg
+   :target: https://www.quantifiedcode.com/app/project/c42903be20d644809c9c87c9b8c6b81f
+   :alt: QuantifiedCode
+
 .. image:: https://img.shields.io/pypi/dm/munchkin.svg
    :target: https://pypi.python.org/pypi/munchkin
    :alt: PyPI
+
+.. image:: https://img.shields.io/requires/github/gszathmari/munchkin.svg
+   :target: https://requires.io/github/gszathmari/munchkin/requirements/?branch=master
+   :alt: Requirements Status
 
 .. image:: https://img.shields.io/pypi/pyversions/munchkin.svg
    :alt: Python Versions
