@@ -1,4 +1,4 @@
-__description__ = 'Wordlist generator based on password cards'
+__description__ = 'Password Card Wordlist Generator'
 __title__ = 'munchkin'
 __version_info__ = ('0', '2', '6')
 __version__ = '.'.join(__version_info__)

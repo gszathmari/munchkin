@@ -11,7 +11,8 @@ import logging
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lib'))
 
-from __about__ import __version__, __author__
+from colorama import Fore, Back, Style, init
+from __about__ import __version__, __author__, __description__
 from core.card import Card
 from core.utils import supported_python_version
 
@@ -21,16 +22,16 @@ def password_dumper(args, card):
     """ Displays card and passwords or dumps them to file """
     # If this is a real terminal, display password card on screen
     if sys.stdout.isatty():
-        logging.info("Printing password card")
+        logging.info(Fore.GREEN + "Printing password card")
         print("\n%s" % card.print_card)
     # Dump passwords to file if this option was selected
     if args.file:
         f = args.file
-        logging.info("Dumping to file: %s ... " % f.name)
+        logging.info(Fore.GREEN + "Dumping to file: %s ... " % f.name)
         for password in card.passwords:
             f.write("%s\n" % password)
         f.close()
-        logging.info("Write completed")
+        logging.info(Fore.GREEN + "Write completed")
     # Just display the passwords if user pipes this command
     else:
         for password in card.passwords:
@@ -44,7 +45,7 @@ def generate_card_pcard(args, card):
 def generate_card_custom(args, card):
     """ Generate custom, user supplied password card """
     data = []
-    print("Please copy-paste password card below (press ENTER twice when done):\r\n")
+    print(Fore.YELLOW + Style.BRIGHT + "Please copy-paste password card below (press ENTER twice when done):\r\n")
     # Read card from terminal
     while True:
         input_str = raw_input()
@@ -130,14 +131,18 @@ def banner():
 | |   | || |   | || | \   || |      | (   ) ||  ( \ \    | |   | | \   |
 | )   ( || (___) || )  \  || (____/\| )   ( ||  /  \ \___) (___| )  \  |
 |/     \|(_______)|/    )_)(_______/|/     \||_/    \/\_______/|/    )_)\r\n"""
-    print("Munchkin {0}\r".format(__version__))
-    print(banner)
+    print(Style.BRIGHT + "Munchkin {0} {1}".format(__version__, __description__))
+    print(Fore.CYAN + "Copyright (c) 2015 {0}".format(__author__))
+    print(Style.DIM + banner)
 
 def main(argv=None):
     """ Main program entry point """
     if supported_python_version() is False:
         print("Error: This utility only supports Python 2.6.x and 2.7.x")
         sys.exit(2)
+
+    # Initialize colorama
+    init(autoreset=True)
 
     # Only display the banner if the output is terminal
     if sys.stdout.isatty():

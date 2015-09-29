@@ -2,6 +2,7 @@
 
 - Restructure project directory
 - Add Python version check
+- Colorise console output
 
 0.2.5 (2015-09-23)
 
