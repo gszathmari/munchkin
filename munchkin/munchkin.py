@@ -13,6 +13,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lib
 
 from __about__ import __version__, __author__
 from core.card import Card
+from core.utils import supported_python_version
 
 logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
 
@@ -134,6 +135,10 @@ def banner():
 
 def main(argv=None):
     """ Main program entry point """
+    if supported_python_version() is False:
+        print("Error: This utility only supports Python 2.6.x and 2.7.x")
+        sys.exit(2)
+
     # Only display the banner if the output is terminal
     if sys.stdout.isatty():
         banner()

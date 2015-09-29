@@ -1,6 +1,7 @@
 0.2.6 (2015-09-29)
 
 - Restructure project directory
+- Add Python version check
 
 0.2.5 (2015-09-23)
 
