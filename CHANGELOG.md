@@ -1,3 +1,7 @@
+0.2.6 (2015-09-29)
+
+- Restructure project directory
+
 0.2.5 (2015-09-23)
 
 - Minor code optimizations

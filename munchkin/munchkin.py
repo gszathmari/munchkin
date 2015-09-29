@@ -12,7 +12,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lib'))
 
 from __about__ import __version__, __author__
-from card import Card
+from core.card import Card
 
 logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
 
