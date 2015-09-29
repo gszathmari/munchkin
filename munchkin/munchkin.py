@@ -12,7 +12,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lib'))
 
 from colorama import Fore, Back, Style, init
-from __about__ import __version__, __author__, __description__
+from __about__ import __version__, __author__, __description__, __copyright__, __website__
 from core.card import Card
 from core.utils import supported_python_version
 
@@ -22,16 +22,16 @@ def password_dumper(args, card):
     """ Displays card and passwords or dumps them to file """
     # If this is a real terminal, display password card on screen
     if sys.stdout.isatty():
-        logging.info(Fore.GREEN + "Printing password card")
+        logging.info(Fore.GREEN + "Printing password card" + Fore.RESET)
         print("\n%s" % card.print_card)
     # Dump passwords to file if this option was selected
     if args.file:
         f = args.file
-        logging.info(Fore.GREEN + "Dumping to file: %s ... " % f.name)
+        logging.info(Fore.CYAN + "Dumping to file: {0}".format(f.name) + Fore.RESET)
         for password in card.passwords:
             f.write("%s\n" % password)
         f.close()
-        logging.info(Fore.GREEN + "Write completed")
+        logging.info(Fore.GREEN + "Write completed" + Fore.RESET)
     # Just display the passwords if user pipes this command
     else:
         for password in card.passwords:
@@ -65,7 +65,8 @@ def generate_card_custom(args, card):
 
 def menu():
     """ Contains input arguments and launches controller """
-    version_info="Munchkin wordlist generator version %s by %s" % (__version__, __author__)
+    version_info = Fore.CYAN + "Munchkin wordlist generator version {0} by {1} {2}".format(__version__, __author__, __website__)
+
     parser = argparse.ArgumentParser()
 
     parser.add_argument('-v', '--version', help='version information', action='version', version=version_info)
@@ -137,7 +138,7 @@ def banner():
 | )   ( || (___) || )  \  || (____/\| )   ( ||  /  \ \___) (___| )  \  |
 |/     \|(_______)|/    )_)(_______/|/     \||_/    \/\_______/|/    )_)\r\n"""
     print(Style.BRIGHT + "Munchkin {0} {1}".format(__version__, __description__))
-    print(Fore.CYAN + "Copyright (c) 2015 {0}".format(__author__))
+    print(Fore.BLUE + "{0}".format(__copyright__))
     print(Style.DIM + banner)
 
 def main(argv=None):
