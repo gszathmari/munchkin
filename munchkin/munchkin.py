@@ -47,14 +47,19 @@ def generate_card_custom(args, card):
     data = []
     print(Fore.YELLOW + Style.BRIGHT + "Please copy-paste password card below (press ENTER twice when done):\r\n")
     # Read card from terminal
-    while True:
-        input_str = raw_input()
-        # Finish reading when user leaves line empty
-        if input_str == "":
-            break
-        else:
-            row = list(input_str)
-            data.append(row)
+    try:
+        while True:
+            input_str = raw_input()
+            # Finish reading when user leaves line empty
+            if input_str == "":
+                break
+            else:
+                row = list(input_str)
+                data.append(row)
+    # Handle if user presses CTRL + C
+    except KeyboardInterrupt:
+        print("User interrupt")
+        sys.exit(2)
     card.generate_custom_card(data)
     password_dumper(args, card)
 

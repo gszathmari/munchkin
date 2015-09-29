@@ -3,6 +3,7 @@
 - Restructure project directory
 - Add Python version check
 - Colorise console output
+- Handle user interrupt at entering custom card
 
 0.2.5 (2015-09-23)
 
