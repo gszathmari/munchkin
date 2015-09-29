@@ -1,6 +1,6 @@
-__description__ = 'Wordlist generator based on password cards'
+__description__ = 'Password Card Wordlist Generator'
 __title__ = 'munchkin'
-__version_info__ = ('0', '2', '5')
+__version_info__ = ('0', '2', '6')
 __version__ = '.'.join(__version_info__)
 __author__ = 'Gabor Szathmari'
 __credits__ = ['Gabor Szathmari']
@@ -8,5 +8,5 @@ __maintainer__ = 'Gabor Szathmari'
 __email__ = 'gszathmari@gmail.com'
 __status__ = 'alpha'
 __license__ = 'MIT'
-__copyright__ = '(c) 2015 Gabor Szathmari'
+__copyright__ = 'Copyright (c) 2015 Gabor Szathmari'
 __website__ = 'http://github.com/gszathmari/munchkin'

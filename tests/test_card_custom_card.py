@@ -3,7 +3,7 @@
 import munchkin
 
 from nose.tools import *
-from munchkin.card import Card
+from munchkin.core.card import Card
 from args import Args
 
 args = Args()

@@ -98,6 +98,11 @@ The latest package is available on `PyPI`_ ::
 
 .. _PyPI: https://pypi.python.org/pypi/munchkin
 
+Requirements
+------------
+
+This utility only runs on Python *2.6.x* and *2.7.x*
+
 Usage Instructions
 ==================
 
