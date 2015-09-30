@@ -2,8 +2,8 @@
 
 import logging
 import sys
-import itertools
 import numpy as np
+import strategies
 
 from passwordcard import passwordcard
 
@@ -35,98 +35,32 @@ class Card:
         # Return matrix if its format is a-okay
         return matrix
 
-    # --------------------------------------------------------
-    #
-    # Stream generators
-    #
-    # --------------------------------------------------------
-
-    def _left_to_right(self):
-        """ If the password from the card is read from left to right """
-        data = self._m.getA1().flatten()
-        return data.tolist()
-
-    def _right_to_left(self):
-        """ If the password from the card is read from right to left """
-        data = self._left_to_right()
-        data.reverse()
-        return data
-
-    def _top_to_down(self):
-        """ If the password from the card is read from top to down """
-        data = self._m.getT().getA1().flatten()
-        return data.tolist()
-
-    def _bottom_to_top(self):
-        """ If the password from the card is read from bottom to up """
-        data = self._top_to_down()
-        data.reverse()
-        return data
-
-    def _zig_zag(self):
-        """ If the password from the card is read in zig-zag directions """
-        rows = self._m.getA().tolist()
-        for i in range(len(rows)):
-            # Reverse order on every second line
-            if i % 2 <> 0:
-                rows[i].reverse()
-        # Flatten list
-        data = list(itertools.chain.from_iterable(rows))
-        return data
-
-    def _zig_zag_reverse(self):
-        """ If the password from the card is read in reverse zig-zag directions """
-        rows = self._m.getA().tolist()
-        rows.reverse()
-        for i in range(len(rows)):
-            # Reverse order on every second line
-            if i % 2 == 0:
-                rows[i].reverse()
-        # Flatten list
-        data = list(itertools.chain.from_iterable(rows))
-        return data
-
-    def _diagonal(self):
-        """ If the password from the card is read diagonally """
-        diagonals = []
-        for i in range(self.rows * -1, self.columns):
-            diagonals.append(self._m.diagonal(offset=i).tolist()[0])
-        data = list(itertools.chain.from_iterable(diagonals))
-        return data
-
-    def _angled(self):
-        """ If the password from the card is read in a rotated 'L' shape """
-        data = []
-        for i in range(0, self.rows-1):
-            # Select a row
-            stream = self._m[i].tolist()[0]
-            # Select last elements from each row below
-            for j in range(i+1, self.rows):
-                stream.append(self._m[j].tolist()[0][-1])
-            data.append(stream)
-        return data
-
-    # --------------------------------------------------------
-
     def _generate_data_streams(self):
         """ Adds appropriate character streams based on the selected card reading strategies """
         streams = []
         if self._args.get('left_to_right'):
-            streams.append(self._left_to_right())
+            results = strategies.left_to_right(self.m)
+            streams.append(results)
         if self._args.get('right_to_left'):
-            streams.append(self._right_to_left())
+            results = strategies.right_to_left(self.m)
+            streams.append(results)
         if self._args.get('top_down'):
-            streams.append(self._top_to_down())
+            results = strategies.top_to_down(self.m)
+            streams.append(results)
         if self._args.get('bottom_up'):
-            streams.append(self._bottom_to_top())
+            results = strategies.bottom_to_top(self.m)
+            streams.append(results)
         if self._args.get('zig_zag'):
-            streams.append(self._zig_zag())
+            results = strategies.zig_zag(self.m)
+            streams.append(results)
         if self._args.get('zig_zag_rev'):
-            streams.append(self._zig_zag_reverse())
+            results = strategies.zig_zag_reverse(self.m)
+            streams.append(results)
         if self._args.get('diagonal'):
-            streams.append(self._diagonal())
+            results = strategies.diagonal(self.m, self.rows, self.columns)
+            streams.append(results)
         if self._args.get('angled'):
-            data = self._angled()
+            data = strategies.angled(self.m, self.rows)
             for i in range(0, len(data)):
                 streams.append(data[i])
         return streams
@@ -163,6 +97,11 @@ class Card:
         # Validate and generate matrix with NumPy
         self._m = self._validate_matrix(m)
         # Save card dimensions
+        return self._m
+
+    @property
+    def m(self):
+        """ Return password card matrix """
         return self._m
 
     @property

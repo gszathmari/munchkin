@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import munchkin
+import munchkin.core.strategies as strategies
 
 from nose.tools import *
 from munchkin.core.card import Card
@@ -30,50 +31,50 @@ def test_print_card():
     ok_("+------------- 8x29 ------------+" in card.print_card)
 
 def test_left_to_right():
-    chars = card._left_to_right()
+    chars = strategies.left_to_right(card.m)
     stream = ''.join(chars)
     ok_("WEanUD" in stream)
     ok_("sLEphF" in stream)
 
 def test_right_to_left():
-    chars = card._right_to_left()
+    chars = strategies.right_to_left(card.m)
     stream = ''.join(chars)
     ok_("hpELsL" in stream)
     ok_("hDP2Nq" in stream)
 
 def test_top_to_down():
-    chars = card._top_to_down()
+    chars = strategies.top_to_down(card.m)
     stream = ''.join(chars)
     ok_("D6pU7ehPcE" in stream)
     ok_("LME25v" in stream)
 
 def test_bottom_to_top():
-    chars = card._bottom_to_top()
+    chars = strategies.bottom_to_top(card.m)
     stream = ''.join(chars)
     ok_("XPaysqY" in stream)
     ok_("6V88ur" in stream)
 
 def test_zig_zag():
-    chars = card._zig_zag()
+    chars = strategies.zig_zag(card.m)
     stream = ''.join(chars)
     ok_("4cj5Xwvx" in stream)
     ok_("7782Yme4" in stream)
 
 def test_zig_zag_reverse():
-    chars = card._zig_zag_reverse()
+    chars = strategies.zig_zag_reverse(card.m)
     stream = ''.join(chars)
     ok_("uvLsL9qvU" in stream)
     ok_("vcDUnreEPzAC" in stream)
 
 def test_diagonal():
-    chars = card._diagonal()
+    chars = strategies.diagonal(card.m, card.rows, card.columns)
     stream = ''.join(chars)
     ok_("Yp2mhm8eFq" in stream)
     ok_("cxY9Lq" in stream)
     ok_("pRZrwD" in stream)
 
 def test_angled():
-    streams = card._angled()
+    streams = strategies.angled(card.m, card.rows)
     ok_("TLhWEaPXwG9LK" in ''.join(streams[0]))
     ok_("RxKBYG9LK" in ''.join(streams[4]))
     ok_("SQYuvLsLK" in ''.join(streams[6]))

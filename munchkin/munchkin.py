@@ -131,7 +131,6 @@ def controller(args):
         args.diagonal = True
         args.angled = True
 
-    print(args)
     # Create card and start processing
     card = Card(args)
     args.func(args, card)
