@@ -111,21 +111,21 @@ class Card:
     def _generate_data_streams(self):
         """ Adds appropriate character streams based on the selected card reading strategies """
         streams = []
-        if self._args.get('left_to_right') or self._args.get('all'):
+        if self._args.get('left_to_right'):
             streams.append(self._left_to_right())
-        if self._args.get('right_to_left') or self._args.get('all'):
+        if self._args.get('right_to_left'):
             streams.append(self._right_to_left())
-        if self._args.get('top_down') or self._args.get('all'):
+        if self._args.get('top_down'):
             streams.append(self._top_to_down())
-        if self._args.get('bottom_up') or self._args.get('all'):
+        if self._args.get('bottom_up'):
             streams.append(self._bottom_to_top())
-        if self._args.get('zig_zag') or self._args.get('all'):
+        if self._args.get('zig_zag'):
             streams.append(self._zig_zag())
-        if self._args.get('zig_zag_reverse') or self._args.get('all'):
+        if self._args.get('zig_zag_rev'):
             streams.append(self._zig_zag_reverse())
-        if self._args.get('diagonal') or self._args.get('all'):
+        if self._args.get('diagonal'):
             streams.append(self._diagonal())
-        if self._args.get('angled') or self._args.get('all'):
+        if self._args.get('angled'):
             data = self._angled()
             for i in range(0, len(data)):
                 streams.append(data[i])
