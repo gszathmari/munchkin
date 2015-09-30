@@ -120,10 +120,20 @@ def controller(args):
         args.all) is False:
         logging.error("Please select at least one algorithm (hint: -l/-r/-t/-b/-z/-x/-d/-A/--all)\r\n")
         sys.exit(3)
-    else:
-        # Create card and start processing
-        card = Card(args)
-        args.func(args, card)
+
+    if args.all:
+        args.left_to_right = True
+        args.right_to_left = True
+        args.top_down = True
+        args.bottom_up = True
+        args.zig_zag = True
+        args.zig_zag_rev = True
+        args.diagonal = True
+        args.angled = True
+
+    # Create card and start processing
+    card = Card(args)
+    args.func(args, card)
 
 # Displays banner and program version
 def banner():
