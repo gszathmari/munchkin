@@ -2,6 +2,7 @@
 
 - Fixing bug related to reverse zig-zag
 - Simplifying the handling of '-a' flag
+- Refactoring strategies code into separate file
 
 0.2.6 (2015-09-29)
 
