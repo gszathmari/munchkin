@@ -6,6 +6,15 @@ import numpy as np
 import strategies
 
 from passwordcard import passwordcard
+from strategies.left_to_right import left_to_right
+from strategies.right_to_left import right_to_left
+from strategies.top_to_down import top_to_down
+from strategies.bottom_to_top import bottom_to_top
+from strategies.zig_zag import zig_zag
+from strategies.zig_zag_reverse import zig_zag_reverse
+from strategies.diagonal import diagonal
+from strategies.angled import angled
+from strategies.spiral import spiral
 
 logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
 
@@ -37,46 +46,67 @@ class Card:
 
     def _generate_data_streams(self):
         """ Adds appropriate character streams based on the selected card reading strategies """
-        streams = []
+        # Create object to hold results
+        streams = {
+            'default': []
+        }
         if self._args.get('left_to_right'):
-            results = strategies.left_to_right(self.m)
-            streams.append(results)
+            #results = strategies.left_to_right(self.m)
+            results = left_to_right(self)
+            streams['default'].append(results)
         if self._args.get('right_to_left'):
-            results = strategies.right_to_left(self.m)
-            streams.append(results)
+            results = right_to_left(self)
+            streams['default'].append(results)
         if self._args.get('top_down'):
-            results = strategies.top_to_down(self.m)
-            streams.append(results)
+            results = top_to_down(self)
+            streams['default'].append(results)
         if self._args.get('bottom_up'):
-            results = strategies.bottom_to_top(self.m)
-            streams.append(results)
+            results = bottom_to_top(self)
+            streams['default'].append(results)
         if self._args.get('zig_zag'):
-            results = strategies.zig_zag(self.m)
-            streams.append(results)
+            results = zig_zag(self)
+            streams['default'].append(results)
         if self._args.get('zig_zag_rev'):
-            results = strategies.zig_zag_reverse(self.m)
-            streams.append(results)
+            results = zig_zag_reverse(self)
+            streams['default'].append(results)
         if self._args.get('diagonal'):
-            results = strategies.diagonal(self.m, self.rows, self.columns)
-            streams.append(results)
+            results = diagonal(self)
+            streams['default'].append(results)
         if self._args.get('angled'):
-            data = strategies.angled(self.m, self.rows)
+            data = angled(self)
             for i in range(0, len(data)):
-                streams.append(data[i])
+                streams['default'].append(data[i])
+        if self._args.get('spiral'):
+            data = spiral(self)
+            # Create list for holding spiral results
+            streams['spiral'] = []
+            for i in range(0, len(data)):
+                # Do not add spirals shorter than minimum password length
+                if len(data[i]) >= int(self._args.get('minlen')):
+                    streams['spiral'].append(data[i])
         return streams
 
     @staticmethod
     def _passwords_generator(streams, pwlen):
         """ Generator that dumps the passwords for each card read strategy """
         # Iterate through streams (strategies)
-        for stream in streams:
+        for stream in streams['default']:
             counter = 0
             # Generate passwords with certain length from the card
-            while counter+pwlen < len(stream)+1:
-                result = stream[counter:counter+pwlen]
+            while counter + pwlen < len(stream) + 1:
+                result = stream[counter:counter + pwlen]
                 # Return result back
                 yield ''.join(result)
                 counter += 1
+
+        # Spiral strategy requires different processing
+        if streams.get('spiral'):
+            for stream in streams['spiral']:
+                # Check if character stream is long enough
+                if len(stream) >= pwlen:
+                    # Return password from spiral
+                    result = stream[0:pwlen]
+                    yield ''.join(result)
 
     def generate_password_card(self, digits=False, symbols=False):
         """ Generate password card as on http://passwordcard.org """

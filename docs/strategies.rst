@@ -54,3 +54,11 @@ Angled
 
 .. image:: https://raw.githubusercontent.com/gszathmari/munchkin/master/docs/images/angled-2.png
   :alt: Angled 2
+
+Spiral
+------
+
+This strategy iterates through each character position and generates passwords in a spiral direction
+
+.. image:: https://raw.githubusercontent.com/gszathmari/munchkin/master/docs/images/spiral.png
+   :alt: Spiral
