@@ -4,7 +4,7 @@ import itertools
 
 def zig_zag_reverse(card):
     """ If the password from the card is read in reverse zig-zag directions """
-    rows = card.getA().tolist()
+    rows = card.m.getA().tolist()
     rows.reverse()
     for i in range(len(rows)):
         # Reverse order on every second line
