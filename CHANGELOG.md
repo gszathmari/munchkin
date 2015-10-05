@@ -1,3 +1,7 @@
+0.3.0 (2015-10-05)
+
+- Add spiral card read strategy (resolves #3)
+
 0.2.7 (2015-09-30)
 
 - Fixing bug related to reverse zig-zag

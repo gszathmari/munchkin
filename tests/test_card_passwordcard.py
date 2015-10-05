@@ -79,6 +79,11 @@ def test_angled():
     ok_("RxKBYG9LK" in ''.join(streams[4]))
     ok_("SQYuvLsLK" in ''.join(streams[6]))
 
+def test_spiral():
+    streams = strategies.spiral(card.m, card.rows, card.columns)
+    ok_("pxR8d6VD2pn2ZtvFLuYQ" in streams)
+    ok_("kgmK3vhKQ3ssnJ6zDtPWnhy6aTbRQSy8ZwR45Cwexw7fBkML8SNqWSQa" in streams)
+
 def test_symbols():
     card = Card(args)
     card.generate_password_card(symbols=True)

@@ -87,6 +87,7 @@ def menu():
     wordlist_options.add_argument('-x', '--zig-zag-rev', help='read card zig-zag from bottom right', action='store_true')
     wordlist_options.add_argument('-d', '--diagonal', help='read card diagonally', action='store_true')
     wordlist_options.add_argument('-A', '--angled', help='read card at right-angle directions', action='store_true')
+    wordlist_options.add_argument('-S', '--spiral', help='read card in spiral directions', action='store_true')
     wordlist_options.add_argument('-a', '--all', help='use each read strategy from above', action='store_true')
 
     subparsers = parser.add_subparsers(title='subcommands', description='valid subcommands', help='Generate wordlist based on cards from:')
@@ -117,6 +118,7 @@ def controller(args):
         args.zig_zag_rev or
         args.diagonal or
         args.angled or
+        args.spiral or
         args.all) is False:
         logging.error("Please select at least one algorithm (hint: -l/-r/-t/-b/-z/-x/-d/-A/--all)\r\n")
         sys.exit(3)
@@ -130,6 +132,7 @@ def controller(args):
         args.zig_zag_rev = True
         args.diagonal = True
         args.angled = True
+        args.spiral = True
 
     # Create card and start processing
     card = Card(args)
