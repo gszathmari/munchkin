@@ -9,7 +9,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name="munchkin",
-    version="0.2.7",
+    version="0.3.1",
     author="Gabor Szathmari",
     author_email="gszathmari@gmail.com",
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
