@@ -52,32 +52,32 @@ class Card:
         }
         if self._args.get('left_to_right'):
             #results = strategies.left_to_right(self.m)
-            results = left_to_right(self.m)
+            results = left_to_right(self)
             streams['default'].append(results)
         if self._args.get('right_to_left'):
-            results = right_to_left(self.m)
+            results = right_to_left(self)
             streams['default'].append(results)
         if self._args.get('top_down'):
-            results = top_to_down(self.m)
+            results = top_to_down(self)
             streams['default'].append(results)
         if self._args.get('bottom_up'):
-            results = bottom_to_top(self.m)
+            results = bottom_to_top(self)
             streams['default'].append(results)
         if self._args.get('zig_zag'):
-            results = zig_zag(self.m)
+            results = zig_zag(self)
             streams['default'].append(results)
         if self._args.get('zig_zag_rev'):
-            results = zig_zag_reverse(self.m)
+            results = zig_zag_reverse(self)
             streams['default'].append(results)
         if self._args.get('diagonal'):
-            results = diagonal(self.m, self.rows, self.columns)
+            results = diagonal(self)
             streams['default'].append(results)
         if self._args.get('angled'):
-            data = angled(self.m, self.rows)
+            data = angled(self)
             for i in range(0, len(data)):
                 streams['default'].append(data[i])
         if self._args.get('spiral'):
-            data = spiral(self.m, self.rows, self.columns)
+            data = spiral(self)
             # Create list for holding spiral results
             streams['spiral'] = []
             for i in range(0, len(data)):

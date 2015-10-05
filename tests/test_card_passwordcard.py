@@ -40,56 +40,56 @@ def test_print_card():
     ok_("+------------- 8x29 ------------+" in card.print_card)
 
 def test_left_to_right():
-    chars = left_to_right(card.m)
+    chars = left_to_right(card)
     stream = ''.join(chars)
     ok_("WEanUD" in stream)
     ok_("sLEphF" in stream)
 
 def test_right_to_left():
-    chars = right_to_left(card.m)
+    chars = right_to_left(card)
     stream = ''.join(chars)
     ok_("hpELsL" in stream)
     ok_("hDP2Nq" in stream)
 
 def test_top_to_down():
-    chars = top_to_down(card.m)
+    chars = top_to_down(card)
     stream = ''.join(chars)
     ok_("D6pU7ehPcE" in stream)
     ok_("LME25v" in stream)
 
 def test_bottom_to_top():
-    chars = bottom_to_top(card.m)
+    chars = bottom_to_top(card)
     stream = ''.join(chars)
     ok_("XPaysqY" in stream)
     ok_("6V88ur" in stream)
 
 def test_zig_zag():
-    chars = zig_zag(card.m)
+    chars = zig_zag(card)
     stream = ''.join(chars)
     ok_("4cj5Xwvx" in stream)
     ok_("7782Yme4" in stream)
 
 def test_zig_zag_reverse():
-    chars = zig_zag_reverse(card.m)
+    chars = zig_zag_reverse(card)
     stream = ''.join(chars)
     ok_("uvLsL9qvU" in stream)
     ok_("vcDUnreEPzAC" in stream)
 
 def test_diagonal():
-    chars = diagonal(card.m, card.rows, card.columns)
+    chars = diagonal(card)
     stream = ''.join(chars)
     ok_("Yp2mhm8eFq" in stream)
     ok_("cxY9Lq" in stream)
     ok_("pRZrwD" in stream)
 
 def test_angled():
-    streams = angled(card.m, card.rows)
+    streams = angled(card)
     ok_("TLhWEaPXwG9LK" in ''.join(streams[0]))
     ok_("RxKBYG9LK" in ''.join(streams[4]))
     ok_("SQYuvLsLK" in ''.join(streams[6]))
 
 def test_spiral():
-    streams = spiral(card.m, card.rows, card.columns)
+    streams = spiral(card)
     ok_("pxR8d6VD2pn2ZtvFLuYQ" in streams)
     ok_("kgmK3vhKQ3ssnJ6zDtPWnhy6aTbRQSy8ZwR45Cwexw7fBkML8SNqWSQa" in streams)
 
