@@ -6,6 +6,15 @@ import numpy as np
 import strategies
 
 from passwordcard import passwordcard
+from strategies.left_to_right import left_to_right
+from strategies.right_to_left import right_to_left
+from strategies.top_to_down import top_to_down
+from strategies.bottom_to_top import bottom_to_top
+from strategies.zig_zag import zig_zag
+from strategies.zig_zag_reverse import zig_zag_reverse
+from strategies.diagonal import diagonal
+from strategies.angled import angled
+from strategies.spiral import spiral
 
 logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
 
@@ -42,32 +51,33 @@ class Card:
             'default': []
         }
         if self._args.get('left_to_right'):
-            results = strategies.left_to_right(self.m)
+            #results = strategies.left_to_right(self.m)
+            results = left_to_right(self.m)
             streams['default'].append(results)
         if self._args.get('right_to_left'):
-            results = strategies.right_to_left(self.m)
+            results = right_to_left(self.m)
             streams['default'].append(results)
         if self._args.get('top_down'):
-            results = strategies.top_to_down(self.m)
+            results = top_to_down(self.m)
             streams['default'].append(results)
         if self._args.get('bottom_up'):
-            results = strategies.bottom_to_top(self.m)
+            results = bottom_to_top(self.m)
             streams['default'].append(results)
         if self._args.get('zig_zag'):
-            results = strategies.zig_zag(self.m)
+            results = zig_zag(self.m)
             streams['default'].append(results)
         if self._args.get('zig_zag_rev'):
-            results = strategies.zig_zag_reverse(self.m)
+            results = zig_zag_reverse(self.m)
             streams['default'].append(results)
         if self._args.get('diagonal'):
-            results = strategies.diagonal(self.m, self.rows, self.columns)
+            results = diagonal(self.m, self.rows, self.columns)
             streams['default'].append(results)
         if self._args.get('angled'):
-            data = strategies.angled(self.m, self.rows)
+            data = angled(self.m, self.rows)
             for i in range(0, len(data)):
                 streams['default'].append(data[i])
         if self._args.get('spiral'):
-            data = strategies.spiral(self.m, self.rows, self.columns)
+            data = spiral(self.m, self.rows, self.columns)
             # Create list for holding spiral results
             streams['spiral'] = []
             for i in range(0, len(data)):

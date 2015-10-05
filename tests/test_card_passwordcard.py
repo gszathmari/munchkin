@@ -1,7 +1,16 @@
 # -*- coding: utf-8 -*-
 
 import munchkin
-import munchkin.core.strategies as strategies
+from munchkin.core.strategies.left_to_right import left_to_right
+from munchkin.core.strategies.right_to_left import right_to_left
+from munchkin.core.strategies.top_to_down import top_to_down
+from munchkin.core.strategies.bottom_to_top import bottom_to_top
+from munchkin.core.strategies.zig_zag import zig_zag
+from munchkin.core.strategies.zig_zag_reverse import zig_zag_reverse
+from munchkin.core.strategies.diagonal import diagonal
+from munchkin.core.strategies.angled import angled
+from munchkin.core.strategies.spiral import spiral
+
 
 from nose.tools import *
 from munchkin.core.card import Card
@@ -31,56 +40,56 @@ def test_print_card():
     ok_("+------------- 8x29 ------------+" in card.print_card)
 
 def test_left_to_right():
-    chars = strategies.left_to_right(card.m)
+    chars = left_to_right(card.m)
     stream = ''.join(chars)
     ok_("WEanUD" in stream)
     ok_("sLEphF" in stream)
 
 def test_right_to_left():
-    chars = strategies.right_to_left(card.m)
+    chars = right_to_left(card.m)
     stream = ''.join(chars)
     ok_("hpELsL" in stream)
     ok_("hDP2Nq" in stream)
 
 def test_top_to_down():
-    chars = strategies.top_to_down(card.m)
+    chars = top_to_down(card.m)
     stream = ''.join(chars)
     ok_("D6pU7ehPcE" in stream)
     ok_("LME25v" in stream)
 
 def test_bottom_to_top():
-    chars = strategies.bottom_to_top(card.m)
+    chars = bottom_to_top(card.m)
     stream = ''.join(chars)
     ok_("XPaysqY" in stream)
     ok_("6V88ur" in stream)
 
 def test_zig_zag():
-    chars = strategies.zig_zag(card.m)
+    chars = zig_zag(card.m)
     stream = ''.join(chars)
     ok_("4cj5Xwvx" in stream)
     ok_("7782Yme4" in stream)
 
 def test_zig_zag_reverse():
-    chars = strategies.zig_zag_reverse(card.m)
+    chars = zig_zag_reverse(card.m)
     stream = ''.join(chars)
     ok_("uvLsL9qvU" in stream)
     ok_("vcDUnreEPzAC" in stream)
 
 def test_diagonal():
-    chars = strategies.diagonal(card.m, card.rows, card.columns)
+    chars = diagonal(card.m, card.rows, card.columns)
     stream = ''.join(chars)
     ok_("Yp2mhm8eFq" in stream)
     ok_("cxY9Lq" in stream)
     ok_("pRZrwD" in stream)
 
 def test_angled():
-    streams = strategies.angled(card.m, card.rows)
+    streams = angled(card.m, card.rows)
     ok_("TLhWEaPXwG9LK" in ''.join(streams[0]))
     ok_("RxKBYG9LK" in ''.join(streams[4]))
     ok_("SQYuvLsLK" in ''.join(streams[6]))
 
 def test_spiral():
-    streams = strategies.spiral(card.m, card.rows, card.columns)
+    streams = spiral(card.m, card.rows, card.columns)
     ok_("pxR8d6VD2pn2ZtvFLuYQ" in streams)
     ok_("kgmK3vhKQ3ssnJ6zDtPWnhy6aTbRQSy8ZwR45Cwexw7fBkML8SNqWSQa" in streams)
 
