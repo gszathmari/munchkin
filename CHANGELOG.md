@@ -1,3 +1,7 @@
+0.3.1 (2015-10-05)
+
+- Fixing bug with version numbers
+
 0.3.0 (2015-10-05)
 
 - Add spiral card read strategy (resolves #3)
